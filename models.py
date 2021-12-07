@@ -10,7 +10,7 @@ class Pet(db.Model):
     photo_url = db.Column(db.Text)
     age = db.Column(db.Integer)
     available = db.Column(db.Boolean,  default = True)
-
+"""Connect to the database """
 def connect_db(app):
     db.app=app
     db.init_app(app)  

@@ -1,14 +1,16 @@
 {% extends 'base.html' %} {% block title %}Pet Details{% endblock %} {% block
 content%}
-<h1>About {{pet.name}}</h1>
+<h1>About Me</h1>
 {% if pet.photo_url %}
 <img src="{{pet.photo_url}}" />
 {% endif %}
 <form>
   <button
     class="btn btn-success"
-    formaction="/pets/{{ pet.id }}/edit"
-    formmethod="GET"
+    form
+    action="/pets/{{ pet.id }}/edit"
+    form
+    method="GET"
   >
     Edit
   </button>

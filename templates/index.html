@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block title %}Adopt a Pet{% endblock %} {% block
 content%}
-<h1>Pets</h1>
+<h1>Our Pets</h1>
 
 {% for msg in get_flashed_messages()%}
 <p>{{msg}}</p>
@@ -10,7 +10,7 @@ content%}
   {% for pet in pets %}
   <li>
     <a href="{{pet.id}}"
-      >{{ pet.name }} <img src="{{pet.photo_url}}"/> </a
+      >{{ pet.name }} <img class= "petImage" src="{{pet.photo_url}}"/> </a
     >
     {% if pet.available %}<b> is available</b> {% endif %}
   </li>

@@ -25,17 +25,13 @@ def list_pets():
 def add_pet():
     form = AddPetForm()
     if form.validate_on_submit():
-        name = form.name.data
-        species = form.species.data
-        photo_url = form.photo_url.data
-        age =  form.age.data
-        notes = form.notes.data
-        flash(f"Added a new animal: Name is {name}")
-
-        pet = Pet(name=name, species=species, photo_url=photo_url, age=age)
+        pet=Pet( name = form.name.data,
+        species = form.species.data,
+        photo_url = form.photo_url.data,
+        age =  form.age.data)
         db.session.add(pet)
         db.session.commit()
-        
+        flash(f"Added a new animal: Name is {pet.name}")
         return redirect('/index')
 
     else:
@@ -44,20 +40,17 @@ def add_pet():
 """Get an edit pet form for a specific pet"""
 @app.route('/<int:pet_id>', methods=["GET", "POST"])
 def show_pet_details(pet_id):
-    pets = Pet.query.get_or_404(pet_id)
-    form = EditPetForm()
+    pet = Pet.query.get_or_404(pet_id)
+    form = EditPetForm(obj=pet)
     
     if form.validate_on_submit():
-        photo_url = form.photo_url.data
-        notes = form.notes.data
-        available = form.available.data
-        flash(f"Edit complete!")
-
-        pets = Pet(photo_url=photo_url, available=available)
-        db.session.add(pets)
-        db.session.commit()
+        pet.photo_url = form.photo_url.data
+        pet.notes = form.notes.data
+        pet.available = form.available.data
         
+        db.session.commit()
+        flash(f"Edit complete!")
         return redirect('/index')
 
     else:
-        return render_template('edit_pet_form.html', form=form, pets=pets)
+        return render_template('edit_pet_form.html', form=form, pet=pet)
